@@ -1,0 +1,18 @@
+
+	<p><%=@user.name%></p>
+	<form method="post" action="/secrets">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type="hidden" name="secret[user_id]" value="<%=@user.id%>">
+	<input type="text" name="secret[content]">
+	<button>Post Secret</button>
+</form>
+	<% @secrets.each do |secret|%>
+	<p><%=secret.content%></p>
+	<form method="post" action="/secrets/<%=secret.id%>">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type="hidden" name="_method" value="delete">
+	<button>Delete Secret</button>
+	</form>
+	<%end%>
+	<a href="/users/<%=@user.id%>/edit">Edit Profile</a>
+	
